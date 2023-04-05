@@ -1,0 +1,12 @@
+.example-btn {
+    color: white;
+    background-color: purple;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.example-btn:hover {
+    background-color: #5d3d9a;
+}

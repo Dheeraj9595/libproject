@@ -1,0 +1,88 @@
+{% load static %}
+<html>
+    <head>
+        <title>Book Details</title>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"
+    </head>
+
+    <style>
+        table,th,td {
+            border: 3px solid rgb(210, 16, 16);
+        }
+    </style>
+    <body>
+        {% if books %}
+        <table class="table table-dark table-striped"> 
+            
+
+        <tr>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Book Qty</th>
+            <th>Book Price</th>
+            <th>Book Author</th>
+            <th>Book Published</th>
+            <th>Actions</th>
+        </tr>
+        
+        {% for book in books %}
+            <tr>
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.qty}}</td>
+                <td>{{book.price}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.is_published}}</td>
+                <td>
+
+                    {% if not inactive %} 
+                    <!-- because we dont want to show update in inactive books-->
+
+                    <form action="{% url 'update_book' book.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-info" value="Update"> 
+                    </form>
+
+                    <form action="{% url 'soft_delete_book' book.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-warning" value="Soft Delete">  
+                    </form>
+
+                    
+                    
+                    {% endif %}
+
+
+
+                    {% if not active %}
+                    <form action="{% url 'restore_book' book.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Restore">  
+                    </form>
+                    {% endif %}
+
+                    <form action="{% url 'delete_book' book.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Hard Delete">  
+                    </form>
+                  
+
+
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <h2>No Record found</h2>
+        {% endif %}    
+
+    </table><br> 
+        
+    <a href="{% url 'home_page' %}"><button style= "color: black;background-color: palegreen; padding: 3mm;">Home page</button></a>
+
+
+
+
+    </body>
+
+
+</html>

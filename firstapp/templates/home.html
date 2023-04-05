@@ -1,0 +1,79 @@
+{% load static %}
+<html >
+    <head >
+        <title>Library Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> -->
+        
+    </head>
+      
+            
+    <style>
+        .required:before { 
+            content:" *";
+            color: red;
+        }
+
+    </style>
+
+
+
+
+    <body style="background-color: rgb(213, 254, 252);"> 
+        <h2 style="background-color: rgb(237, 234, 61); font-style: italic;">Library Application</h2><hr>
+        <form action="{% url 'home_page' %}" method="post" style="background-color: rgba(52, 120, 120);">
+          {% csrf_token %}
+
+          {% if single_book %}
+          <label class="required">Book ID:- </label>
+               <input  type="text" name="book_id" value="{{single_book.id}}" readonly ><br><br>
+          {% endif %}     
+          <label class="required">Name:-&nbsp;&nbsp;&nbsp;&nbsp; </label>
+               <input placeholder="Enter Book name " type="text" name="book_name" value="{{single_book.name}}" required ><br><br>
+          <label class="required">Quantity:- </label> 
+               <input placeholder="Enter book quantity" type="text" name="book_qty" value="{{single_book.qty}}" required ><br><br>
+          <label class="required">Price:-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label> 
+               <input placeholder="Enter book price" type="text" name="book_price" value="{{single_book.price}}" required ><br><br>
+          <label class="required"> Author:- </label>
+               <input placeholder="Enter book Author" type="text" name="book_author" value="{{single_book.author}}" required ><br><br>
+          
+
+          {% if single_book %}
+              {% if single_book.is_published == True %}
+                  Is Published:- Yes <input type="radio" name="book_is_pub" value="Yes" checked> No <input type="radio" name="book_is_pub" value="No"><br><br>
+              {% else %}
+                  Is Published:- Yes <input type="radio" name="book_is_pub" value="Yes" > No <input type="radio" name="book_is_pub" value="No" checked><br><br>
+              {% endif %}
+          {% else %}
+          Is Published:- Yes <input type="radio" name="book_is_pub" value="Yes"> No <input type="radio" name="book_is_pub" value="No"><br><br>
+          {% endif %}
+
+          <input   type="submit" class="btn btn-primary" value="Submit"><br><br>
+
+            <!-- <div class="mb-3">
+              <label  class="form-label">Email address</label>
+              <input type="email" class="form-control"  aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Password</label>
+              <input type="password" class="form-control" >
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" >
+              <label class="form-check-label" >Check me out</label>
+            </div> -->
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+          </form>
+
+        
+    <!-- <a href="/books/">Show books</a> instead of this follow below one  -->
+    <a href="{% url 'all_active_books' %}"><button class="btn btn-success">Show Active Books</button></a>
+    
+    <a href="{% url 'all_inactive_book' %}"><button class="btn btn btn-danger">Show in-Active Books</button></a>
+    
+    
+ 
+    </body>
+
+</html>    

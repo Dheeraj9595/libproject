@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Book List</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>qty</th>
+        <th>price</th>
+        <th>author</th>
+        <th>is_published</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in book_list %}
+        <tr>
+          <td>{{ book.name }}</td>
+          <td>{{ book.qty }}</td>
+          <td>{{ book.price }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.is_published }}</td>
+          <td>{{ book.is_active }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
